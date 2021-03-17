@@ -1,5 +1,5 @@
 {
   "name": "tracker",
-  "app_id": "",
+  "integrations": {},
   "type": "ionic-angular"
 }

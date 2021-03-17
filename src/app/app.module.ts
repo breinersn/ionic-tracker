@@ -6,25 +6,51 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { LoginPage } from '../pages/login/login';
+import { UsuarioProvider } from '../providers/usuario/usuario';
+
+//plugins
+import { Geolocation } from '@ionic-native/geolocation';
+
+//firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
+import { firebaseConfig } from '../config/firebase.config';
+
+import { IonicStorageModule } from '@ionic/storage';
+import { UbicacionProvider } from '../providers/ubicacion/ubicacion';
+
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBjQABSVm5-I00LBgQ42KKlQo9vGJgH5XA'
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage
   ],
   providers: [
     StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    SplashScreen,{ provide: FirestoreSettingsToken, useValue: {} },
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UsuarioProvider,
+    UbicacionProvider,
+    Geolocation
   ]
 })
 export class AppModule {}
